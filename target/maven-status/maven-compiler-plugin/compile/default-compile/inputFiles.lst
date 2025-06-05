@@ -1,11 +1,9 @@
 /home/runner/work/convert-aws-lambda-to-aca/convert-aws-lambda-to-aca/src/main/java/software/amazonaws/example/product/product/dao/ProductMapper.java
-/home/runner/work/convert-aws-lambda-to-aca/convert-aws-lambda-to-aca/src/main/java/software/amazonaws/example/product/product/handler/DeleteProductFunction.java
-/home/runner/work/convert-aws-lambda-to-aca/convert-aws-lambda-to-aca/src/main/java/software/amazonaws/example/product/product/handler/CreateProductFunction.java
-/home/runner/work/convert-aws-lambda-to-aca/convert-aws-lambda-to-aca/src/main/java/software/amazonaws/example/product/product/handler/GetProductByIdFunction.java
+/home/runner/work/convert-aws-lambda-to-aca/convert-aws-lambda-to-aca/src/main/java/software/amazonaws/example/product/product/config/AzureConfigurationProperties.java
+/home/runner/work/convert-aws-lambda-to-aca/convert-aws-lambda-to-aca/src/main/java/software/amazonaws/example/product/product/controller/ProductController.java
 /home/runner/work/convert-aws-lambda-to-aca/convert-aws-lambda-to-aca/src/main/java/software/amazonaws/example/product/product/dao/ProductDao.java
 /home/runner/work/convert-aws-lambda-to-aca/convert-aws-lambda-to-aca/src/main/java/software/amazonaws/example/product/product/dao/DynamoProductDao.java
 /home/runner/work/convert-aws-lambda-to-aca/convert-aws-lambda-to-aca/src/main/java/software/amazonaws/example/product/product/entity/Product.java
 /home/runner/work/convert-aws-lambda-to-aca/convert-aws-lambda-to-aca/src/main/java/software/amazonaws/example/product/product/entity/Products.java
-/home/runner/work/convert-aws-lambda-to-aca/convert-aws-lambda-to-aca/src/main/java/software/amazonaws/example/product/product/handler/GetAllProductsFunction.java
-/home/runner/work/convert-aws-lambda-to-aca/convert-aws-lambda-to-aca/src/main/java/software/amazonaws/example/product/product/PrimingResource.java
+/home/runner/work/convert-aws-lambda-to-aca/convert-aws-lambda-to-aca/src/main/java/software/amazonaws/example/product/product/service/ProductService.java
 /home/runner/work/convert-aws-lambda-to-aca/convert-aws-lambda-to-aca/src/main/java/software/amazonaws/example/product/product/SpringBootSampleApplication.java

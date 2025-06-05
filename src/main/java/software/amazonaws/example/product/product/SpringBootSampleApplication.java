@@ -3,20 +3,13 @@
 
 package software.amazonaws.example.product.product;
 
-import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
-import com.amazonaws.xray.entities.TraceHeader;
-import com.amazonaws.xray.entities.TraceID;
-import com.amazonaws.xray.interceptors.TracingInterceptor;
-import org.joda.time.DateTime;
-import software.amazonaws.example.product.product.entity.Product;
-import software.amazonaws.example.product.product.entity.Products;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.util.HashSet;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import software.amazonaws.example.product.product.config.AzureConfigurationProperties;
 
 @SpringBootApplication
+@EnableConfigurationProperties(AzureConfigurationProperties.class)
 public class SpringBootSampleApplication {
 
   public static void main(String[] args) {

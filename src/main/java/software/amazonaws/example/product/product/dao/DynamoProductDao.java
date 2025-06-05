@@ -6,6 +6,7 @@ package software.amazonaws.example.product.product.dao;
 import com.amazonaws.xray.interceptors.TracingInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import software.amazon.awssdk.core.SdkSystemSetting;
 import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
@@ -24,20 +25,31 @@ import java.util.Optional;
 @Component
 public class DynamoProductDao implements ProductDao {
   private static final Logger logger = LoggerFactory.getLogger(DynamoProductDao.class);
-  private static final String PRODUCT_TABLE_NAME = System.getenv("PRODUCT_TABLE_NAME");
-  private final DynamoDbClient dynamoDbClient = DynamoDbClient.builder()
-    .region(Region.of(System.getenv(SdkSystemSetting.AWS_REGION.environmentVariable())))
-    .overrideConfiguration(ClientOverrideConfiguration.builder()
-      .addExecutionInterceptor(new TracingInterceptor())
-      .build())
-    .httpClient(UrlConnectionHttpClient.builder().build())
-    .build();
+  
+  // Use externalized configuration instead of environment variables
+  private final String productTableName;
+  private final DynamoDbClient dynamoDbClient;
+
+  public DynamoProductDao(
+      @Value("${PRODUCT_TABLE_NAME:ProductsTable}") String productTableName,
+      @Value("${AWS_REGION:us-east-1}") String awsRegion) {
+    this.productTableName = productTableName;
+    this.dynamoDbClient = DynamoDbClient.builder()
+      .region(Region.of(awsRegion))
+      .overrideConfiguration(ClientOverrideConfiguration.builder()
+        .addExecutionInterceptor(new TracingInterceptor())
+        .build())
+      .httpClient(UrlConnectionHttpClient.builder().build())
+      .build();
+    
+    logger.info("DynamoProductDao initialized with table: {} in region: {}", productTableName, awsRegion);
+  }
 
   @Override
   public Optional<Product> getProduct(String id) {
     GetItemResponse getItemResponse = dynamoDbClient.getItem(GetItemRequest.builder()
       .key(Map.of("PK", AttributeValue.builder().s(id).build()))
-      .tableName(PRODUCT_TABLE_NAME)
+      .tableName(productTableName)
       .build());
 
     if (getItemResponse.hasItem()) {
@@ -50,7 +62,7 @@ public class DynamoProductDao implements ProductDao {
   @Override
   public void putProduct(Product product) {
     dynamoDbClient.putItem(PutItemRequest.builder()
-      .tableName(PRODUCT_TABLE_NAME)
+      .tableName(productTableName)
       .item(ProductMapper.productToDynamoDb(product))
       .build());
   }
@@ -58,7 +70,7 @@ public class DynamoProductDao implements ProductDao {
   @Override
   public void deleteProduct(String id) {
     dynamoDbClient.deleteItem(DeleteItemRequest.builder()
-      .tableName(PRODUCT_TABLE_NAME)
+      .tableName(productTableName)
       .key(Map.of("PK", AttributeValue.builder().s(id).build()))
       .build());
   }
@@ -66,7 +78,7 @@ public class DynamoProductDao implements ProductDao {
   @Override
   public Products getAllProduct() {
     ScanResponse scanResponse = dynamoDbClient.scan(ScanRequest.builder()
-      .tableName(PRODUCT_TABLE_NAME)
+      .tableName(productTableName)
       .limit(20)
       .build());
     logger.info("Scan returned: {} item(s)", scanResponse.count());
@@ -82,7 +94,7 @@ public class DynamoProductDao implements ProductDao {
 
   public void describeTable() {
     DescribeTableResponse response = dynamoDbClient.describeTable(DescribeTableRequest.builder()
-      .tableName(PRODUCT_TABLE_NAME)
+      .tableName(productTableName)
       .build());
   }
 
