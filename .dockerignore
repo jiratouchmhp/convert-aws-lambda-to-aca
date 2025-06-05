@@ -1,0 +1,34 @@
+# Dockerignore file for Azure Container Apps build optimization
+
+# Git
+.git
+.gitignore
+.github
+
+# IDE
+.vscode
+.idea
+*.iml
+
+# Maven
+target/
+!target/*.jar
+
+# AWS-specific files that are not needed for Azure
+template*.yaml
+load-test/
+
+# Documentation
+*.md
+!README.md
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+tmp/
+temp/

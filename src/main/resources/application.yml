@@ -127,3 +127,26 @@ logging:
     software.amazonaws.example: INFO
     org.springframework.web: WARN
     com.azure: WARN
+
+---
+# Azure Profile - Using Azure Cosmos DB instead of DynamoDB
+spring:
+  config:
+    activate:
+      on-profile: azure
+      
+azure:
+  cosmos:
+    enabled: true
+    endpoint: ${AZURE_COSMOS_ENDPOINT:https://localhost:8081}
+    key: ${AZURE_COSMOS_KEY:C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==}
+    database-name: ${AZURE_COSMOS_DATABASE:productdb}
+    container-name: ${AZURE_COSMOS_CONTAINER:products}
+    
+  application-insights:
+    connection-string: ${AZURE_APPINSIGHTS_CONNECTION_STRING:}
+
+logging:
+  level:
+    software.amazonaws.example: INFO
+    com.azure: INFO

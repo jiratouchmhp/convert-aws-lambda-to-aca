@@ -1,5 +1,6 @@
 software/amazonaws/example/product/product/dao/ProductMapper.class
 software/amazonaws/example/product/product/controller/ProductController.class
+software/amazonaws/example/product/product/dao/CosmosProductDao.class
 software/amazonaws/example/product/product/entity/Product.class
 software/amazonaws/example/product/product/config/AzureConfigurationProperties$ApplicationInsights.class
 software/amazonaws/example/product/product/config/AzureConfigurationProperties$Cosmos.class
@@ -8,5 +9,7 @@ software/amazonaws/example/product/product/config/AzureConfigurationProperties.c
 software/amazonaws/example/product/product/SpringBootSampleApplication.class
 software/amazonaws/example/product/product/dao/DynamoProductDao.class
 software/amazonaws/example/product/product/config/AzureConfigurationProperties$Identity.class
+software/amazonaws/example/product/product/config/CosmosDbConfiguration.class
 software/amazonaws/example/product/product/entity/Products.class
+software/amazonaws/example/product/product/dao/CosmosProductDocument.class
 software/amazonaws/example/product/product/service/ProductService.class
