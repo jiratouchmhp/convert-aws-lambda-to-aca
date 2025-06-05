@@ -1,0 +1,129 @@
+# Azure Container Apps Configuration
+azure:
+  # Azure Cosmos DB Configuration (migrated from DynamoDB)
+  cosmos:
+    # These will be externalized to Azure App Configuration or Key Vault
+    endpoint: ${AZURE_COSMOS_ENDPOINT:https://localhost:8081}
+    key: ${AZURE_COSMOS_KEY:C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==}
+    database-name: ${AZURE_COSMOS_DATABASE:productdb}
+    container-name: ${AZURE_COSMOS_CONTAINER:products}
+    
+  # Azure Application Insights Configuration (replaces X-Ray)
+  application-insights:
+    instrumentation-key: ${AZURE_APPINSIGHTS_INSTRUMENTATION_KEY:}
+    connection-string: ${AZURE_APPINSIGHTS_CONNECTION_STRING:}
+    
+  # Azure Identity Configuration
+  identity:
+    client-id: ${AZURE_CLIENT_ID:}
+    
+# Product Service Configuration
+product:
+  service:
+    name: "Azure Product Service"
+    version: "@project.version@"
+    description: "Product CRUD API migrated from AWS Lambda to Azure Container Apps"
+
+# Spring Configuration
+spring:
+  application:
+    name: product-service
+  
+  # Jackson JSON Configuration
+  jackson:
+    default-property-inclusion: NON_NULL
+    serialization:
+      write-dates-as-timestamps: false
+      
+  # Cache Configuration (if needed for Cosmos DB)
+  cache:
+    type: simple
+    
+# Server Configuration for Container Apps
+server:
+  port: ${PORT:8080}
+  servlet:
+    context-path: /api
+  error:
+    include-message: always
+    include-binding-errors: always
+
+# Actuator Configuration for Health Checks
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,info,metrics,env"
+      base-path: /actuator
+  endpoint:
+    health:
+      show-details: always
+      probes:
+        enabled: true
+  health:
+    readiness-state:
+      enabled: true
+    liveness-state:
+      enabled: true
+  info:
+    env:
+      enabled: true
+    build:
+      enabled: true
+    git:
+      enabled: true
+      mode: full
+
+# Logging Configuration
+logging:
+  level:
+    software.amazonaws.example: INFO
+    org.springframework.web: DEBUG
+    com.azure: WARN
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level [%logger{36}] - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level [%logger{36}] - %msg%n"
+
+---
+# Development Profile
+spring:
+  config:
+    activate:
+      on-profile: dev
+      
+azure:
+  cosmos:
+    endpoint: "https://localhost:8081"
+    key: "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw=="
+    database-name: "productdb-dev"
+    container-name: "products"
+
+logging:
+  level:
+    software.amazonaws.example: DEBUG
+    org.springframework.web: DEBUG
+    com.azure: DEBUG
+
+---
+# Production Profile
+spring:
+  config:
+    activate:
+      on-profile: prod
+      
+# In production, these values should come from Azure App Configuration or Key Vault
+azure:
+  cosmos:
+    endpoint: ${AZURE_COSMOS_ENDPOINT}
+    key: ${AZURE_COSMOS_KEY}
+    database-name: ${AZURE_COSMOS_DATABASE:productdb}
+    container-name: ${AZURE_COSMOS_CONTAINER:products}
+    
+  application-insights:
+    connection-string: ${AZURE_APPINSIGHTS_CONNECTION_STRING}
+
+logging:
+  level:
+    software.amazonaws.example: INFO
+    org.springframework.web: WARN
+    com.azure: WARN
