@@ -1,14 +1,9 @@
 software/amazonaws/example/product/product/dao/ProductMapper.class
 software/amazonaws/example/product/product/controller/ProductController.class
-software/amazonaws/example/product/product/PrimingResource.class
-software/amazonaws/example/product/product/handler/GetAllProductsFunction.class
-software/amazonaws/example/product/product/handler/DeleteProductFunction.class
 software/amazonaws/example/product/product/entity/Product.class
 software/amazonaws/example/product/product/config/AzureConfigurationProperties$ApplicationInsights.class
-software/amazonaws/example/product/product/handler/CreateProductFunction.class
 software/amazonaws/example/product/product/config/AzureConfigurationProperties$Cosmos.class
 software/amazonaws/example/product/product/dao/ProductDao.class
-software/amazonaws/example/product/product/handler/GetProductByIdFunction.class
 software/amazonaws/example/product/product/config/AzureConfigurationProperties.class
 software/amazonaws/example/product/product/SpringBootSampleApplication.class
 software/amazonaws/example/product/product/dao/DynamoProductDao.class
